@@ -5,7 +5,7 @@
   Time: 4:44 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Java Library - Add Book</title>
@@ -13,7 +13,7 @@
 <body>
     <h1>Add Book</h1>
     <br />
-    <form action="library-data" method="POST">
+    <form action="${pageContext.request.contextPath}/library-data" method="POST">
         <input type="hidden" id="form_type" name="form_type" value="book">
         <label>ISBN:
             <input type="text" name="isbn">
