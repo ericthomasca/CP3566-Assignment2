@@ -133,6 +133,7 @@ public class DBConnection {
 
     /**
      * Add author to database
+     *
      * @param author author
      */
     public static void addAuthor(Author author) {
