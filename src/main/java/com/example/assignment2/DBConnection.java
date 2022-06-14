@@ -5,12 +5,14 @@ import java.util.LinkedList;
 
 /**
  * Handles connections to the database
+ *
  * @author Eric Thomas
  */
 public class DBConnection {
 
     /**
      * Get a connection to the book database
+     *
      * @return connection
      * @throws SQLException can't connect to database
      */
@@ -48,7 +50,7 @@ public class DBConnection {
      *
      * @return List of Book objects
      */
-    public static LinkedList<Book> getAllBooks(){
+    public static LinkedList<Book> getAllBooks() {
         LinkedList<Book> bookList = new LinkedList<>();
         try (
                 Connection connection = initDatabase();
@@ -57,7 +59,7 @@ public class DBConnection {
             String sqlQuery = "SELECT * from " + DBConnection.BookDatabase.BOOK_TABLE_NAME;
             ResultSet resultSet = statement.executeQuery(sqlQuery);
 
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 bookList.add(
                         new Book(
                                 resultSet.getString(DBConnection.BookDatabase.BOOK_COL_NAME_ISBN),
@@ -78,7 +80,7 @@ public class DBConnection {
      *
      * @return List of Author objects
      */
-    public static LinkedList<Author> getAllAuthors(){
+    public static LinkedList<Author> getAllAuthors() {
         LinkedList<Author> authorList = new LinkedList<>();
         try (
                 Connection connection = initDatabase();
@@ -87,7 +89,7 @@ public class DBConnection {
             String sqlQuery = "SELECT * from " + BookDatabase.AUTHOR_TABLE_NAME;
             ResultSet resultSet = statement.executeQuery(sqlQuery);
 
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 authorList.add(
                         new Author(
                                 resultSet.getInt(BookDatabase.AUTHOR_COL_NAME_AUTHOR_ID),
@@ -100,5 +102,21 @@ public class DBConnection {
             e.printStackTrace();
         }
         return authorList;
+    }
+
+    public static void addBook(Book book) {
+        try (
+                Connection connection = initDatabase();
+                Statement statement = connection.createStatement()
+        ) {
+            String query = "INSERT INTO " + BookDatabase.BOOK_TABLE_NAME +
+                    " (" + BookDatabase.BOOK_COL_NAME_ISBN + ", " + BookDatabase.BOOK_COL_NAME_TITLE + ", " + BookDatabase.BOOK_COL_NAME_EDITION_NUMBER + ", " + BookDatabase.BOOK_COL_NAME_COPYRIGHT + ") VALUES" +
+                    " (" + book.getIsbn() + ", " + book.getTitle() + ", " + book.getEditionNumber() + ", " + book.getCopyright() + ")";
+
+
+            statement.executeQuery(query);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
