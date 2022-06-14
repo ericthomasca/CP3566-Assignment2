@@ -110,13 +110,21 @@ public class DBConnection {
                 Statement statement = connection.createStatement()
         ) {
             String query = "INSERT INTO " + BookDatabase.BOOK_TABLE_NAME +
-                    " (" + BookDatabase.BOOK_COL_NAME_ISBN + ", " + BookDatabase.BOOK_COL_NAME_TITLE + ", " + BookDatabase.BOOK_COL_NAME_EDITION_NUMBER + ", " + BookDatabase.BOOK_COL_NAME_COPYRIGHT + ") VALUES" +
-                    " (" + book.getIsbn() + ", " + book.getTitle() + ", " + book.getEditionNumber() + ", " + book.getCopyright() + ")";
+                    " (" + BookDatabase.BOOK_COL_NAME_ISBN + ", " +
+                           BookDatabase.BOOK_COL_NAME_TITLE + ", " +
+                           BookDatabase.BOOK_COL_NAME_EDITION_NUMBER + ", " +
+                           BookDatabase.BOOK_COL_NAME_COPYRIGHT + ") VALUES" +
+                    " (" + book.getIsbn() + ", " +
+                           book.getTitle() + ", " +
+                           book.getEditionNumber() + ", " +
+                           book.getCopyright() + ")";
 
 
             statement.executeQuery(query);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+
     }
 }
