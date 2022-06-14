@@ -2,7 +2,6 @@ package com.example.assignment2;
 
 import java.sql.*;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Handles connections to the database
@@ -37,38 +36,67 @@ public class DBConnection {
         public static final String BOOK_COL_NAME_COPYRIGHT = "copyright";
 
         public static final String AUTHOR_TABLE_NAME = "authors";
-        public static final String BOOK_COL_NAME_AUTHOR_ID = "authorID";
-        public static final String BOOK_COL_NAME_FIRST_NAME = "firstName";
-        public static final String BOOK_COL_NAME_LAST_NAME = "lastName";
+        public static final String AUTHOR_COL_NAME_AUTHOR_ID = "authorID";
+        public static final String AUTHOR_COL_NAME_FIRST_NAME = "firstName";
+        public static final String AUTHOR_COL_NAME_LAST_NAME = "lastName";
     }
 
-//    /**
-//     * Retrieve all the books from the database into a LinkedList.
-//     * Note: this method is dangerous if the database is large. In our example it isn't.
-//     * @return List of Book objects
-//     */
-//    public static List<Book> getAllBooks(){
-//        LinkedList bookList = new LinkedList();
-//        try (
-//                Connection connection = getBooksDBConnection();
-//                Statement statement = connection.createStatement();
-//        ) {
-//            String sqlQuery = "SELECT * from " + DBConnection2.BooksDatabaseSQL.BOOK_TABLE_NAME;
-//            ResultSet resultSet = statement.executeQuery(sqlQuery);
-//
-//            while(resultSet.next()) {
-//                bookList.add(
-//                        new Book(
-//                                resultSet.getString(DBConnection2.BooksDatabaseSQL.BOOK_COL_NAME_ISBN),
-//                                resultSet.getString(DBConnection2.BooksDatabaseSQL.BOOK_COL_NAME_TITLE),
-//                                resultSet.getInt(DBConnection2.BooksDatabaseSQL.BOOK_COL_NAME_EDITION_NUMBER),
-//                                resultSet.getString(DBConnection2.BooksDatabaseSQL.BOOK_COL_NAME_COPYRIGHT)
-//                        )
-//                );
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return bookList;
-//    }
+    /**
+     * Retrieve all the books from the database into a LinkedList.
+     *
+     * @return List of Book objects
+     */
+    public static LinkedList<Book> getAllBooks(){
+        LinkedList<Book> bookList = new LinkedList<>();
+        try (
+                Connection connection = initDatabase();
+                Statement statement = connection.createStatement()
+        ) {
+            String sqlQuery = "SELECT * from " + DBConnection.BookDatabase.BOOK_TABLE_NAME;
+            ResultSet resultSet = statement.executeQuery(sqlQuery);
+
+            while(resultSet.next()) {
+                bookList.add(
+                        new Book(
+                                resultSet.getString(DBConnection.BookDatabase.BOOK_COL_NAME_ISBN),
+                                resultSet.getString(DBConnection.BookDatabase.BOOK_COL_NAME_TITLE),
+                                resultSet.getInt(DBConnection.BookDatabase.BOOK_COL_NAME_EDITION_NUMBER),
+                                resultSet.getString(DBConnection.BookDatabase.BOOK_COL_NAME_COPYRIGHT)
+                        )
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bookList;
+    }
+
+    /**
+     * Retrieve all the authors from the database into a LinkedList.
+     *
+     * @return List of Author objects
+     */
+    public static LinkedList<Author> getAllAuthors(){
+        LinkedList<Author> authorList = new LinkedList<>();
+        try (
+                Connection connection = initDatabase();
+                Statement statement = connection.createStatement()
+        ) {
+            String sqlQuery = "SELECT * from " + BookDatabase.AUTHOR_TABLE_NAME;
+            ResultSet resultSet = statement.executeQuery(sqlQuery);
+
+            while(resultSet.next()) {
+                authorList.add(
+                        new Author(
+                                resultSet.getInt(BookDatabase.AUTHOR_COL_NAME_AUTHOR_ID),
+                                resultSet.getString(BookDatabase.AUTHOR_COL_NAME_FIRST_NAME),
+                                resultSet.getString(BookDatabase.AUTHOR_COL_NAME_LAST_NAME)
+                        )
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return authorList;
+    }
 }
