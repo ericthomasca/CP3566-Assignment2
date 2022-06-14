@@ -1,11 +1,12 @@
 package com.example.assignment2;
 
 import java.io.PrintStream;
+import java.util.List;
 
 /**
- * Simple class to store all book information. The information will not change.
+ * Store all book information.
  *
- * @author Josh
+ * @author Eric Thomas
  */
 public class Book {
 
@@ -13,14 +14,15 @@ public class Book {
     private String title;
     private int editionNumber;
     private String copyright;
-    //private List<Author> authorList;
+    private List<Author> authorList;
 
     /**
      * Create a book
-     * @param isbn
-     * @param title
-     * @param editionNumber
-     * @param copyright
+     *
+     * @param isbn          isbn
+     * @param title         book title
+     * @param editionNumber edition number
+     * @param copyright     copyright year
      */
     public Book(String isbn, String title, int editionNumber, String copyright) {
         this.isbn = isbn;
@@ -30,7 +32,22 @@ public class Book {
     }
 
     /**
+     * Create a book with all the authors
+     *
+     * @param isbn          isbn
+     * @param title         book title
+     * @param editionNumber edition number
+     * @param copyright     copyright year
+     * @param authorList    list of authors
+     */
+    public Book(String isbn, String title, int editionNumber, String copyright, List<Author> authorList) {
+        this(isbn, title, editionNumber, copyright);
+        this.authorList = authorList;
+    }
+
+    /**
      * Get the ISBN
+     *
      * @return isbn
      */
     public String getIsbn() {
@@ -39,6 +56,7 @@ public class Book {
 
     /**
      * Get the title
+     *
      * @return title
      */
     public String getTitle() {
@@ -47,6 +65,7 @@ public class Book {
 
     /**
      * Get the edition number as an integer
+     *
      * @return edition number
      */
     public int getEditionNumber() {
@@ -55,34 +74,20 @@ public class Book {
 
     /**
      * Get the copyright
+     *
      * @return copyright
      */
     public String getCopyright() {
         return copyright;
     }
 
-//    /**
-//     * Get the list of Authors
-//     * @return list of Authors
-//     */
-//    public List<Author> getAuthorList() {
-//        return authorList;
-//    }
-//
-//    /**
-//     * Set the list of Authors
-//     * @param authorList list of Authors
-//     */
-//    public void setAuthorList(List<Author> authorList) {
-//        this.authorList = authorList;
-//    }
-
     /**
      * Print out the book information
-     * @param printStream
+     *
+     * @param printStream book information
      */
-    public void printBookInformation(PrintStream printStream){
-        printStream.printf("\nISBN: %s \t\t Title: %-80s \t\t Edition #: %d \t\t Copyright: %s",
+    public void printBookInformation(PrintStream printStream) {
+        printStream.printf("\nISBN: %s \t\t Title: %-60s \t\t Edition #: %d \t\t Copyright: %s",
                 this.getIsbn(), this.getTitle(), this.getEditionNumber(), this.getCopyright());
     }
 
