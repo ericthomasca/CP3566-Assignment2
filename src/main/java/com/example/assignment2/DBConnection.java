@@ -124,7 +124,7 @@ public class DBConnection {
                     book.getEditionNumber() + ", " +
                     book.getCopyright() + ")";
 
-            statement.executeQuery(query);
+            statement.executeUpdate(query);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -142,14 +142,14 @@ public class DBConnection {
                 Statement statement = connection.createStatement()
         ) {
             String query = "INSERT INTO " + BookDatabase.AUTHOR_TABLE_NAME +
-                    " (" + BookDatabase.AUTHOR_COL_NAME_AUTHOR_ID + ", " +
-                    BookDatabase.AUTHOR_COL_NAME_FIRST_NAME + ", " +
-                    BookDatabase.AUTHOR_COL_NAME_LAST_NAME + ") VALUES" +
+                    " (" + "authorID" + ", " +
+                    "firstName" + ", " +
+                    "lastName" + ") VALUES" +
                     " (" + author.getId() + ", " +
                     author.getFirstName() + ", " +
                     author.getLastName() + ")";
 
-            statement.executeQuery(query);
+            statement.executeUpdate(query);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
