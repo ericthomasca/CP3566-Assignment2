@@ -104,6 +104,11 @@ public class DBConnection {
         return authorList;
     }
 
+    /**
+     * Add book to database
+     *
+     * @param book book
+     */
     public static void addBook(Book book) {
         try (
                 Connection connection = initDatabase();
@@ -111,20 +116,44 @@ public class DBConnection {
         ) {
             String query = "INSERT INTO " + BookDatabase.BOOK_TABLE_NAME +
                     " (" + BookDatabase.BOOK_COL_NAME_ISBN + ", " +
-                           BookDatabase.BOOK_COL_NAME_TITLE + ", " +
-                           BookDatabase.BOOK_COL_NAME_EDITION_NUMBER + ", " +
-                           BookDatabase.BOOK_COL_NAME_COPYRIGHT + ") VALUES" +
+                    BookDatabase.BOOK_COL_NAME_TITLE + ", " +
+                    BookDatabase.BOOK_COL_NAME_EDITION_NUMBER + ", " +
+                    BookDatabase.BOOK_COL_NAME_COPYRIGHT + ") VALUES" +
                     " (" + book.getIsbn() + ", " +
-                           book.getTitle() + ", " +
-                           book.getEditionNumber() + ", " +
-                           book.getCopyright() + ")";
-
+                    book.getTitle() + ", " +
+                    book.getEditionNumber() + ", " +
+                    book.getCopyright() + ")";
 
             statement.executeQuery(query);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Add author to database
+     * @param author author
+     */
+    public static void addAuthor(Author author) {
+        try (
+                Connection connection = initDatabase();
+                Statement statement = connection.createStatement()
+        ) {
+            String query = "INSERT INTO " + BookDatabase.AUTHOR_TABLE_NAME +
+                    " (" + BookDatabase.AUTHOR_COL_NAME_AUTHOR_ID + ", " +
+                    BookDatabase.AUTHOR_COL_NAME_FIRST_NAME + ", " +
+                    BookDatabase.AUTHOR_COL_NAME_LAST_NAME + ") VALUES" +
+                    " (" + author.getId() + ", " +
+                    author.getFirstName() + ", " +
+                    author.getLastName() + ")";
+
+            statement.executeQuery(query);
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-
     }
+
 }
