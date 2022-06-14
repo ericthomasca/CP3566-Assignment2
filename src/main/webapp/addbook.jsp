@@ -12,7 +12,7 @@
 <body>
     <h1>Add Book</h1>
     <br />
-    <form action="${pageContext.request.contextPath}/library-data" method="POST">
+    <form action="library-data" method="POST">
         <input type="hidden" id="form_type" name="form_type" value="book">
         <label>ISBN:
             <input type="text" name="isbn">
