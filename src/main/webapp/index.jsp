@@ -8,9 +8,9 @@
         <h1>Java Library</h1>
         <br/>
         <ul>
-            <li><a href="${pageContext.request.contextPath}/addbook.jsp">Add Book</a>
+            <li><a href="addbook.jsp">Add Book</a>
             </li>
-            <li><a href="${pageContext.request.contextPath}/addauthor.jsp">Add Author</a>
+            <li><a href="addauthor.jsp">Add Author</a>
             </li>
             <li><a href="library-data">View Books</a>
             </li>
