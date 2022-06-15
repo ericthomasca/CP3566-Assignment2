@@ -1,14 +1,23 @@
-<%@ page import="java.util.List" %>
 <%@ page import="com.example.assignment2.Book" %>
 <%@ page import="java.util.LinkedList" %>
 <%@ page import="com.example.assignment2.DBConnection" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.sql.SQLException" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
     <head>
         <title>View all Books</title>
     </head>
     <body>
-        <% LinkedList<Book> bookList = DBConnection.getAllBooks(); %>
+        <h1>All Books From Database</h1>
+
+        <%
+            LinkedList<Book> bookList = null;
+            try {
+                bookList = DBConnection.getAllBooks();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        %>
 
         <table>
             <tr>
@@ -27,7 +36,6 @@
                     out.println("<td>" + book.getCopyright() + "</td>");
                     out.println("</tr>");
                 }
-
             %>
 
         </table>

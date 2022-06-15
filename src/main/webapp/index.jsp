@@ -16,6 +16,8 @@
             </li>
             <li><a href="viewallbooks.jsp">View All Books</a>
             </li>
+            <li><a href="viewallauthors.jsp">View All Authors</a>
+            </li>
         </ul>
     </body>
 </html>
