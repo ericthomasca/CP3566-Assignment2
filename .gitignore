@@ -39,6 +39,3 @@ build/
 
 ### Assignment Files ###
 *.pdf
-src/main/webapp/JSPExamples.jsp
-src/main/webapp/HelloFormGetExample.jsp
-src/main/webapp/HelloFormPostExample.jsp
