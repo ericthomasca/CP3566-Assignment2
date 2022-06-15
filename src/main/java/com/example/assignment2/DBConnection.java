@@ -110,8 +110,9 @@ public class DBConnection {
         preparedStatement.setString(2, book.getTitle());
         preparedStatement.setInt(3, book.getEditionNumber());
         preparedStatement.setString(4, book.getCopyright());
-
         preparedStatement.executeUpdate();
+
+        connection.close();
     }
 
     /**
@@ -119,25 +120,17 @@ public class DBConnection {
      *
      * @param author author
      */
-    public static void addAuthor(Author author) {
-        try (
-                Connection connection = initDatabase();
-                Statement statement = connection.createStatement()
-        ) {
-            String query = "INSERT INTO " + BookDatabase.AUTHOR_TABLE_NAME +
-                    " (" + "authorID" + ", " +
-                    "firstName" + ", " +
-                    "lastName" + ") VALUES" +
-                    " (" + author.getId() + ", " +
-                    author.getFirstName() + ", " +
-                    author.getLastName() + ")";
+    public static void addAuthor(Author author) throws SQLException{
+        Connection connection = initDatabase();
 
-            statement.executeUpdate(query);
+        String query = "INSERT INTO " + BookDatabase.AUTHOR_TABLE_NAME + " VALUES (default, ?, ?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        preparedStatement.setString(1, author.getFirstName());
+        preparedStatement.setString(2, author.getLastName());
+        preparedStatement.executeUpdate();
 
+        connection.close();
     }
 
 }
