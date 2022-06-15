@@ -20,9 +20,9 @@ public class DBConnection {
         Driver driver = new org.mariadb.jdbc.Driver();
         DriverManager.registerDriver(driver);
         return DriverManager.getConnection(
-                BookDatabase.DB_URL,
-                BookDatabase.USER,
-                BookDatabase.PASS);
+            BookDatabase.DB_URL,
+            BookDatabase.USER,
+            BookDatabase.PASS);
     }
 
     /**
@@ -50,27 +50,23 @@ public class DBConnection {
      *
      * @return List of Book objects
      */
-    public static LinkedList<Book> getAllBooks() {
+    public static LinkedList<Book> getAllBooks() throws SQLException {
         LinkedList<Book> bookList = new LinkedList<>();
-        try (
-                Connection connection = initDatabase();
-                Statement statement = connection.createStatement()
-        ) {
-            String sqlQuery = "SELECT * from " + DBConnection.BookDatabase.BOOK_TABLE_NAME;
-            ResultSet resultSet = statement.executeQuery(sqlQuery);
+        Connection connection = initDatabase();
+        Statement statement = connection.createStatement();
 
-            while (resultSet.next()) {
-                bookList.add(
-                        new Book(
-                                resultSet.getString(DBConnection.BookDatabase.BOOK_COL_NAME_ISBN),
-                                resultSet.getString(DBConnection.BookDatabase.BOOK_COL_NAME_TITLE),
-                                resultSet.getInt(DBConnection.BookDatabase.BOOK_COL_NAME_EDITION_NUMBER),
-                                resultSet.getString(DBConnection.BookDatabase.BOOK_COL_NAME_COPYRIGHT)
-                        )
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        String sqlQuery = "SELECT * from " + DBConnection.BookDatabase.BOOK_TABLE_NAME;
+        ResultSet resultSet = statement.executeQuery(sqlQuery);
+
+        while (resultSet.next()) {
+            bookList.add(
+                new Book(
+                    resultSet.getString(DBConnection.BookDatabase.BOOK_COL_NAME_ISBN),
+                    resultSet.getString(DBConnection.BookDatabase.BOOK_COL_NAME_TITLE),
+                    resultSet.getInt(DBConnection.BookDatabase.BOOK_COL_NAME_EDITION_NUMBER),
+                    resultSet.getString(DBConnection.BookDatabase.BOOK_COL_NAME_COPYRIGHT)
+                )
+            );
         }
         return bookList;
     }
@@ -80,26 +76,21 @@ public class DBConnection {
      *
      * @return List of Author objects
      */
-    public static LinkedList<Author> getAllAuthors() {
-        LinkedList<Author> authorList = new LinkedList<>();
-        try (
-                Connection connection = initDatabase();
-                Statement statement = connection.createStatement()
-        ) {
-            String sqlQuery = "SELECT * from " + BookDatabase.AUTHOR_TABLE_NAME;
-            ResultSet resultSet = statement.executeQuery(sqlQuery);
+    public static LinkedList<Author> getAllAuthors() throws SQLException{
+        Connection connection = initDatabase();
+        Statement statement = connection.createStatement();
+        String sqlQuery = "SELECT * from " + BookDatabase.AUTHOR_TABLE_NAME;
+        ResultSet resultSet = statement.executeQuery(sqlQuery);
 
-            while (resultSet.next()) {
-                authorList.add(
-                        new Author(
-                                resultSet.getInt(BookDatabase.AUTHOR_COL_NAME_AUTHOR_ID),
-                                resultSet.getString(BookDatabase.AUTHOR_COL_NAME_FIRST_NAME),
-                                resultSet.getString(BookDatabase.AUTHOR_COL_NAME_LAST_NAME)
-                        )
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        LinkedList<Author> authorList = new LinkedList<>();
+        while (resultSet.next()) {
+            authorList.add(
+                new Author(
+                    resultSet.getInt(BookDatabase.AUTHOR_COL_NAME_AUTHOR_ID),
+                    resultSet.getString(BookDatabase.AUTHOR_COL_NAME_FIRST_NAME),
+                    resultSet.getString(BookDatabase.AUTHOR_COL_NAME_LAST_NAME)
+                )
+            );
         }
         return authorList;
     }
@@ -109,26 +100,18 @@ public class DBConnection {
      *
      * @param book book
      */
-    public static void addBook(Book book) {
-        try (
-                Connection connection = initDatabase();
-                Statement statement = connection.createStatement()
-        ) {
-            String query = "INSERT INTO " + BookDatabase.BOOK_TABLE_NAME +
-                    " (" + BookDatabase.BOOK_COL_NAME_ISBN + ", " +
-                    BookDatabase.BOOK_COL_NAME_TITLE + ", " +
-                    BookDatabase.BOOK_COL_NAME_EDITION_NUMBER + ", " +
-                    BookDatabase.BOOK_COL_NAME_COPYRIGHT + ") VALUES" +
-                    " (" + book.getIsbn() + ", " +
-                    book.getTitle() + ", " +
-                    book.getEditionNumber() + ", " +
-                    book.getCopyright() + ")";
+    public static void addBook(Book book) throws SQLException{
+        Connection connection = initDatabase();
 
-            statement.executeUpdate(query);
+        String query = "INSERT INTO " + BookDatabase.BOOK_TABLE_NAME + " VALUES (?, ?, ?, ?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        preparedStatement.setString(1, book.getIsbn());
+        preparedStatement.setString(2, book.getTitle());
+        preparedStatement.setInt(3, book.getEditionNumber());
+        preparedStatement.setString(4, book.getCopyright());
+
+        preparedStatement.executeUpdate();
     }
 
     /**
