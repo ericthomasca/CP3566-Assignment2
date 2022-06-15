@@ -12,9 +12,9 @@
             </li>
             <li><a href="addauthor.jsp">Add Author</a>
             </li>
-            <li><a href="library-data">View Books</a>
+            <li><a href="library-data">View API</a>
             </li>
-            <li><a href="library-data">View Authors</a>
+            <li><a href="viewallbooks.jsp">View All Books</a>
             </li>
         </ul>
     </body>
