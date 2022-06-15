@@ -27,7 +27,7 @@ public class LibraryData extends HttpServlet {
         LinkedList<Book> allBooks = null;
         try {
             allBooks = DBConnection.getAllBooks();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         System.out.println(allBooks);
@@ -51,7 +51,7 @@ public class LibraryData extends HttpServlet {
 
             try {
                 DBConnection.addBook(new Book(isbn, title, editionNumber, copyright));
-            } catch (SQLException | ClassNotFoundException e) {
+            } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
 
@@ -71,7 +71,7 @@ public class LibraryData extends HttpServlet {
 
             try {
                 DBConnection.addAuthor(new Author(id, firstName, lastName));
-            } catch (SQLException | ClassNotFoundException e) {
+            } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
 
