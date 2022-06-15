@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.Objects;
 
 @WebServlet("/library-data")
@@ -22,7 +24,16 @@ public class LibraryData extends HttpServlet {
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
 
-        out.println("<h3>Welcome user</h3>");
+        LinkedList<Book> allBooks = null;
+        try {
+            allBooks = DBConnection.getAllBooks();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(allBooks);
+
+        out.println("<h3>Welcome user</h3><br />");
+        out.println("<p>" + allBooks + "</p>");
 
     }
 
@@ -38,8 +49,15 @@ public class LibraryData extends HttpServlet {
             int editionNumber = Integer.parseInt(req.getParameter("edition_number"));
             String copyright = req.getParameter("copyright");
 
+            try {
+                DBConnection.addBook(new Book(isbn, title, editionNumber, copyright));
+            } catch (SQLException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
             writer.print("<html><body>");
-            writer.print("<h1>Book Details</h1><br/>");
+            writer.print("<h1>Book Submitted!!</h1><br/>");
+            writer.print("<h2>Book Details</h2><br/>");
             writer.print("ISBN: " + isbn + "<br/>");
             writer.print("Title: " + title + "<br/>");
             writer.print("Edition Number: " + editionNumber + "<br/>");
@@ -51,8 +69,15 @@ public class LibraryData extends HttpServlet {
             String firstName = req.getParameter("first_name");
             String lastName = req.getParameter("last_name");
 
+            try {
+                DBConnection.addAuthor(new Author(id, firstName, lastName));
+            } catch (SQLException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
             writer.print("<html><body>");
-            writer.print("<h3>Author Details</h3><br/>");
+            writer.print("<h3>Author Submitted!!</h3><br/>");
+            writer.print("<h2>Author Details</h2><br/>");
             writer.print("ID: " + id + "<br/>");
             writer.print("First Name: " + firstName + "<br/>");
             writer.print("Last Name: " + lastName);
