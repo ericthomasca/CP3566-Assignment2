@@ -14,7 +14,7 @@ public class DBConnection {
      * Get a connection to the book database
      *
      * @return connection
-     * @throws SQLException can't connect to database
+     * @throws SQLException database connection issue
      */
     public static Connection initDatabase() throws SQLException {
         Driver driver = new org.mariadb.jdbc.Driver();
