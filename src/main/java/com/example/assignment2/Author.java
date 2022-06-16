@@ -1,6 +1,5 @@
 package com.example.assignment2;
 
-import java.io.PrintStream;
 import java.util.List;
 
 /**
@@ -99,14 +98,6 @@ public class Author {
         this.bookList = bookList;
     }
 
-    /**
-     * Print out the author information
-     * @param printStream author information
-     */
-    public void printAuthorInformation(PrintStream printStream){
-        printStream.printf("\nID: %d \t\t Fist Name: %s \t\t Last Name: %s",
-                this.getId(), this.getFirstName(), this.getLastName());
-    }
 }
 
 

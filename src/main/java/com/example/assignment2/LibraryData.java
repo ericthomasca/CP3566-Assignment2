@@ -24,23 +24,70 @@ public class LibraryData extends HttpServlet {
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
 
-        LinkedList<Book> allBooks = null;
+        //LOAD BOOKS
+        LinkedList<Book> bookList;
         try {
-            allBooks = DBConnection.getAllBooks();
+            bookList = DBConnection.getAllBooks();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(allBooks);
 
-        out.println("<h3>Welcome user</h3><br />");
-        out.println("<p>" + allBooks + "</p>");
+        //PRINT HEADERS
+        out.println("<h1>Books</h1><br />");
+        out.println("<table>");
+        out.println("<tr>");
+        out.println("<th>ISBN</th>");
+        out.println("<th>Title</th>");
+        out.println("<th>Edition</th>");
+        out.println("<th>Copyright</th>");
+        out.println("</tr>");
+
+        // PRINT BOOKS
+        for (Book book : bookList) {
+            out.println("<tr>");
+            out.println("<td>" + book.getIsbn() + "</td>");
+            out.println("<td>" + book.getTitle() + "</td>");
+            out.println("<td>" + book.getEditionNumber() + "</td>");
+            out.println("<td>" + book.getCopyright() + "</td>");
+            out.println("</tr>");
+        }
+        out.println("</table>");
+        out.println("<br /><br />");
+
+        // LOAD AUTHORS
+        LinkedList<Author> authorList;
+        try {
+            authorList = DBConnection.getAllAuthors();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        // PRINT HEADERS
+        out.println("<h1>Authors</h1><br />");
+        out.println("<table>");
+        out.println("<tr>");
+        out.println("<th>ID</th>");
+        out.println("<th>First Name</th>");
+        out.println("<th>Last Name</th>");
+        out.println("</tr>");
+
+        // PRINT AUTHORS
+        for (Author author: authorList) {
+            out.println("<tr>");
+            out.println("<td>" + author.getId() + "</td>");
+            out.println("<td>" + author.getFirstName() + "</td>");
+            out.println("<td>" + author.getLastName() + "</td>");
+            out.println("</tr>");
+        }
+        out.println("</table>");
+        out.println("<br /><br />");
 
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/html");
-        PrintWriter writer = resp.getWriter();
+        PrintWriter out = resp.getWriter();
         String formType = req.getParameter("form_type");
 
         if (Objects.equals(formType, "book")) {
@@ -55,14 +102,14 @@ public class LibraryData extends HttpServlet {
                 throw new RuntimeException(e);
             }
 
-            writer.print("<html><body>");
-            writer.print("<h1>Book Submitted!!</h1><br/>");
-            writer.print("<h2>Book Details</h2><br/>");
-            writer.print("ISBN: " + isbn + "<br/>");
-            writer.print("Title: " + title + "<br/>");
-            writer.print("Edition Number: " + editionNumber + "<br/>");
-            writer.print("Copyright: " + copyright);
-            writer.print("</body></html>");
+            out.print("<html><body>");
+            out.print("<h1>Book Submitted!!</h1><br/>");
+            out.print("<h2>Book Details</h2><br/>");
+            out.print("ISBN: " + isbn + "<br/>");
+            out.print("Title: " + title + "<br/>");
+            out.print("Edition Number: " + editionNumber + "<br/>");
+            out.print("Copyright: " + copyright);
+            out.print("</body></html>");
 
         } else if (Objects.equals(formType, "author")) {
             int id = Integer.parseInt(req.getParameter("id"));
@@ -75,13 +122,13 @@ public class LibraryData extends HttpServlet {
                 throw new RuntimeException(e);
             }
 
-            writer.print("<html><body>");
-            writer.print("<h3>Author Submitted!!</h3><br/>");
-            writer.print("<h2>Author Details</h2><br/>");
-            writer.print("ID: " + id + "<br/>");
-            writer.print("First Name: " + firstName + "<br/>");
-            writer.print("Last Name: " + lastName);
-            writer.print("</body></html>");
+            out.print("<html><body>");
+            out.print("<h3>Author Submitted!!</h3><br/>");
+            out.print("<h2>Author Details</h2><br/>");
+            out.print("ID: " + id + "<br/>");
+            out.print("First Name: " + firstName + "<br/>");
+            out.print("Last Name: " + lastName);
+            out.print("</body></html>");
         }
     }
 }

@@ -81,14 +81,5 @@ public class Book {
         return copyright;
     }
 
-    /**
-     * Print out the book information
-     *
-     * @param printStream book information
-     */
-    public void printBookInformation(PrintStream printStream) {
-        printStream.printf("\nISBN: %s \t\t Title: %-60s \t\t Edition #: %d \t\t Copyright: %s",
-                this.getIsbn(), this.getTitle(), this.getEditionNumber(), this.getCopyright());
-    }
 
 }
