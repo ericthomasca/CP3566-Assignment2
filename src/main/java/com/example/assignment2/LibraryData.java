@@ -14,9 +14,6 @@ import java.util.Objects;
 @WebServlet("/library-data")
 public class LibraryData extends HttpServlet {
 
-    public void init() {
-    }
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/html");
@@ -50,6 +47,7 @@ public class LibraryData extends HttpServlet {
             }
             out.println("</table>");
             out.println("<br /><br />");
+
         } else if (Objects.equals(dataType, "authors")) {
             LinkedList<Author> authorList;
             try {
@@ -74,8 +72,9 @@ public class LibraryData extends HttpServlet {
                 out.println("</tr>");
             }
             out.println("</table>");
+
         } else {
-            out.println("<h1>Data Type " + dataType + " Not Found</h1>");
+            out.println("<h1>Data type \"" + dataType + "\" not found</h1>");
             out.println("<h3><a href=\"index.jsp\">Home</a></h3>");
         }
     }
@@ -98,14 +97,14 @@ public class LibraryData extends HttpServlet {
                 throw new RuntimeException(e);
             }
 
-            out.print("<html><body>");
-            out.print("<h1>Book Submitted!!</h1>");
-            out.print("<h2>Book Details</h2>");
-            out.print("ISBN: " + isbn + "<br/>");
-            out.print("Title: " + title + "<br/>");
-            out.print("Edition Number: " + editionNumber + "<br/>");
-            out.print("Copyright: " + copyright);
-            out.print("</body></html>");
+            out.println("<html><body>");
+            out.println("<h1>Book Submitted!!</h1>");
+            out.println("<h2>Book Details</h2>");
+            out.println("ISBN: " + isbn + "<br/>");
+            out.println("Title: " + title + "<br/>");
+            out.println("Edition Number: " + editionNumber + "<br/>");
+            out.println("Copyright: " + copyright);
+            out.println("</body></html>");
 
         } else if (Objects.equals(formType, "author")) {
             int id = Integer.parseInt(req.getParameter("id"));
@@ -118,13 +117,16 @@ public class LibraryData extends HttpServlet {
                 throw new RuntimeException(e);
             }
 
-            out.print("<html><body>");
-            out.print("<h1>Author Submitted!!</h1>");
-            out.print("<h2>Author Details</h2>");
-            out.print("ID: " + id + "<br/>");
-            out.print("First Name: " + firstName + "<br/>");
-            out.print("Last Name: " + lastName);
-            out.print("</body></html>");
+            out.println("<html><body>");
+            out.println("<h1>Author Submitted!!</h1>");
+            out.println("<h2>Author Details</h2>");
+            out.println("ID: " + id + "<br/>");
+            out.println("First Name: " + firstName + "<br/>");
+            out.println("Last Name: " + lastName);
+            out.println("</body></html>");
+        } else {
+            out.println("<h1>Incorrect form type.</h1>");
         }
+
     }
 }
