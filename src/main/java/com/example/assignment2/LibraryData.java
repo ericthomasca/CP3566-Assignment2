@@ -36,10 +36,10 @@ public class LibraryData extends HttpServlet {
             out.println("<h1>Books</h1>");
             out.println("<table>");
             out.println("<tr>");
-            out.println("<th>ISBN</th>");
-            out.println("<th>Title</th>");
-            out.println("<th>Edition</th>");
-            out.println("<th>Copyright</th>");
+            out.println("<th>ISBN\t</th>");
+            out.println("<th>Title\t</th>");
+            out.println("<th>Edition\t</th>");
+            out.println("<th>Copyright\t</th>");
             out.println("</tr>");
 
             for (Book book : bookList) {
@@ -71,9 +71,9 @@ public class LibraryData extends HttpServlet {
             out.println("<h1>Authors</h1>");
             out.println("<table>");
             out.println("<tr>");
-            out.println("<th>ID</th>");
-            out.println("<th>First Name</th>");
-            out.println("<th>Last Name</th>");
+            out.println("<th>ID\t</th>");
+            out.println("<th>First Name\t</th>");
+            out.println("<th>Last Name\t</th>");
             out.println("</tr>");
 
             for (Author author: authorList) {
