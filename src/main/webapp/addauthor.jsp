@@ -5,7 +5,6 @@
     </head>
     <body>
         <h1>Add Author</h1>
-        <br/>
         <form action="library-data" method="POST">
             <input type="hidden" id="form_type" name="form_type" value="author">
             <label>ID:
@@ -22,7 +21,6 @@
             <br/>
             <input type="submit" value="Submit"/>
         </form>
-        <br/>
         <h3><a href="index.jsp">Home</a></h3>
     </body>
 </html>
