@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Eric
-  Date: 6/2/2022
-  Time: 4:44 PM
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
     <head>
         <title>Java Library - Add Author</title>
