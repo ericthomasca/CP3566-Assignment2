@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
         <title>Java Library</title>
     </head>
     <body>

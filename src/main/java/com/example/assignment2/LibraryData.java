@@ -28,6 +28,11 @@ public class LibraryData extends HttpServlet {
                 throw new RuntimeException(e);
             }
 
+            out.println("<html><head>");
+            out.println("<link href=\"https://unpkg.com/nes.css@latest/css/nes.min.css\" rel=\"stylesheet\" />");
+            out.println("<link href=\"https://fonts.googleapis.com/css?family=Press+Start+2P\" rel=\"stylesheet\">");
+            out.println("<title>Books</title>");
+            out.println("</head><body>");
             out.println("<h1>Books</h1>");
             out.println("<table>");
             out.println("<tr>");
@@ -46,7 +51,9 @@ public class LibraryData extends HttpServlet {
                 out.println("</tr>");
             }
             out.println("</table>");
-            out.println("<br /><br />");
+            out.println("</body></html>");
+
+
 
         } else if (Objects.equals(view, "authors")) {
             LinkedList<Author> authorList;
@@ -56,6 +63,11 @@ public class LibraryData extends HttpServlet {
                 throw new RuntimeException(e);
             }
 
+            out.println("<html><head>");
+            out.println("<link href=\"https://unpkg.com/nes.css@latest/css/nes.min.css\" rel=\"stylesheet\" />");
+            out.println("<link href=\"https://fonts.googleapis.com/css?family=Press+Start+2P\" rel=\"stylesheet\">");
+            out.println("<title>Authors</title>");
+            out.println("</head><body>");
             out.println("<h1>Authors</h1>");
             out.println("<table>");
             out.println("<tr>");
@@ -72,10 +84,17 @@ public class LibraryData extends HttpServlet {
                 out.println("</tr>");
             }
             out.println("</table>");
+            out.println("</body></html>");
 
         } else {
+
+            out.println("<html><head>");
+            out.println("<link href=\"https://unpkg.com/nes.css@latest/css/nes.min.css\" rel=\"stylesheet\" />");
+            out.println("<link href=\"https://fonts.googleapis.com/css?family=Press+Start+2P\" rel=\"stylesheet\">");
+            out.println("<title>No data</title>");
             out.println("<h1>No data for \"" + view + "\" in database.</h1>");
             out.println("<h3><a href=\"index.jsp\">Home</a></h3>");
+            out.println("</body></html>");
         }
     }
 
@@ -97,8 +116,13 @@ public class LibraryData extends HttpServlet {
                 throw new RuntimeException(e);
             }
 
+
+            out.println("<html><head>");
+            out.println("<link href=\"https://unpkg.com/nes.css@latest/css/nes.min.css\" rel=\"stylesheet\" />");
+            out.println("<link href=\"https://fonts.googleapis.com/css?family=Press+Start+2P\" rel=\"stylesheet\">");
+            out.println("<title>Book Submitted</title>");
             out.println("<html><body>");
-            out.println("<h1>Book Submitted!!</h1>");
+            out.println("<h1>Book Submitted</h1>");
             out.println("<h2>Book Details</h2>");
             out.println("ISBN: " + isbn + "<br/>");
             out.println("Title: " + title + "<br/>");
@@ -117,8 +141,12 @@ public class LibraryData extends HttpServlet {
                 throw new RuntimeException(e);
             }
 
+            out.println("<html><head>");
+            out.println("<link href=\"https://unpkg.com/nes.css@latest/css/nes.min.css\" rel=\"stylesheet\" />");
+            out.println("<link href=\"https://fonts.googleapis.com/css?family=Press+Start+2P\" rel=\"stylesheet\">");
+            out.println("<title>Author Submitted</title>");
             out.println("<html><body>");
-            out.println("<h1>Author Submitted!!</h1>");
+            out.println("<h1>Author Submitted</h1>");
             out.println("<h2>Author Details</h2>");
             out.println("ID: " + id + "<br/>");
             out.println("First Name: " + firstName + "<br/>");
@@ -126,6 +154,7 @@ public class LibraryData extends HttpServlet {
             out.println("</body></html>");
         } else {
             out.println("<h1>Incorrect form type.</h1>");
+            out.println("</body></html>");
         }
 
     }
