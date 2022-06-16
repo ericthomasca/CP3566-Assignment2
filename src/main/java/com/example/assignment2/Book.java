@@ -9,12 +9,10 @@ import java.util.List;
  * @author Eric Thomas
  */
 public class Book {
-
-    private String isbn;
-    private String title;
-    private int editionNumber;
-    private String copyright;
-    private List<Author> authorList;
+    private final String isbn;
+    private final String title;
+    private final int editionNumber;
+    private final String copyright;
 
     /**
      * Create a book
@@ -29,20 +27,6 @@ public class Book {
         this.title = title;
         this.editionNumber = editionNumber;
         this.copyright = copyright;
-    }
-
-    /**
-     * Create a book with all the authors
-     *
-     * @param isbn          isbn
-     * @param title         book title
-     * @param editionNumber edition number
-     * @param copyright     copyright year
-     * @param authorList    list of authors
-     */
-    public Book(String isbn, String title, int editionNumber, String copyright, List<Author> authorList) {
-        this(isbn, title, editionNumber, copyright);
-        this.authorList = authorList;
     }
 
     /**
