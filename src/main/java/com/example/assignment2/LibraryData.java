@@ -18,9 +18,9 @@ public class LibraryData extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
-        String dataType = req.getParameter("dataType");
+        String view = req.getParameter("view");
 
-        if (Objects.equals(dataType, "books")) {
+        if (Objects.equals(view, "books")) {
             LinkedList<Book> bookList;
             try {
                 bookList = DBConnection.getAllBooks();
@@ -48,7 +48,7 @@ public class LibraryData extends HttpServlet {
             out.println("</table>");
             out.println("<br /><br />");
 
-        } else if (Objects.equals(dataType, "authors")) {
+        } else if (Objects.equals(view, "authors")) {
             LinkedList<Author> authorList;
             try {
                 authorList = DBConnection.getAllAuthors();
@@ -74,7 +74,7 @@ public class LibraryData extends HttpServlet {
             out.println("</table>");
 
         } else {
-            out.println("<h1>Data type \"" + dataType + "\" not found</h1>");
+            out.println("<h1>No data for \"" + view + "\" in database.</h1>");
             out.println("<h3><a href=\"index.jsp\">Home</a></h3>");
         }
     }
