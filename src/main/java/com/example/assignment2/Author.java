@@ -8,10 +8,9 @@ import java.util.List;
  * @author Eric Thomas
  */
 public class Author {
-    private int id;
-    private String firstName;
-    private String lastName;
-    private List<Book> bookList;
+    private final int id;
+    private final String firstName;
+    private final String lastName;
 
     /**
      * A book author
@@ -36,15 +35,6 @@ public class Author {
     }
 
     /**
-     * Sets author id
-     *
-     * @param id author id
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
      * Returns author's first name
      *
      * @return author's first name
@@ -54,48 +44,12 @@ public class Author {
     }
 
     /**
-     * Sets author's first name
-     *
-     * @param firstName author's first name
-     */
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    /**
      * Returns author's last name
      *
      * @return author's last name
      */
     public String getLastName() {
         return lastName;
-    }
-
-    /**
-     * Sets authors last name
-     *
-     * @param lastName author's last name
-     */
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    /**
-     * Returns list of books from the author
-     *
-     * @return list of books from the author
-     */
-    public List<Book> getBookList() {
-        return bookList;
-    }
-
-    /**
-     * Sets the list of books from the author
-     *
-     * @param bookList list of books from the author
-     */
-    public void setBookList(List<Book> bookList) {
-        this.bookList = bookList;
     }
 
 }
